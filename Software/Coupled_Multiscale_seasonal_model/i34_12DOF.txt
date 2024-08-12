@@ -1,0 +1,129 @@
+feap
+ 0 0 1 3 12 8
+
+parameter 
+ nx = 8	    ! Number of nodes in x-direction
+ ny = 8	  	! Number of nodes in y-direction
+ nz = 10
+ lx = 0.5
+ ly = 0.5
+ lz = 0.5
+
+block 1
+ cartean nx ny nz 0 0 1 0 10
+ 1 0.0 0.0 0.0
+ 2 lx  0.0 0.0
+ 3 lx  ly  0.0
+ 4 0.0 ly  0.0
+ 5 0.0 0.0 lz
+ 6 lx  0.0 lz
+ 7 lx  ly  lz
+ 8 0.0 ly  lz
+
+parameter
+ nt = 1      ! numtan
+ Em = 2000000000.d0  ! E-Modul(Steifemodul MN*10E6-> N/m^2)
+ nu = 0.45
+ mu = 2*Em/2.0/(1.0+nu) !muhI
+ lm = Em*nu/(1.0+nu)/(1.0-2.0*nu) !lambdahI
+ nI = 0.1d0    !nhIt0
+ K1 = 1.0E-13   !intrinsic permeability
+ aI = 0.00001	!alphahI heat dil.coeff [1/K] 0.00018
+ kI = 2.0d0/3.0d0*mu+lm !Kompressionsmodul
+ cI = 2200.d0	![J/kg/K] (1200) specific heat capacity ice
+ Ru = 8.3144   	!universal gas constant 
+ T0 = 272.15   !thetat0 (280)
+ aT = 1.6d0	!alphatgrtheta [W/m/K] heat conduction coefficient ice
+ vL = 1.8E-5    !etahLR -> dynamic viscosity sea water 
+ p0 = 0.5d0 	!phLRt0S
+ D1 = 1.0E-9 	!DhLFW (Wasser in Salz)
+ rL = 1000.d0	!rhohLRt0 
+ w1 = 0.35d0	!whSat0 
+ M1 = 15  	 !chAlgt0 mmol/m^3
+ M2 = 0.059d0  	!MhSatm
+ R1 = 462.d0   	!RhFWsp
+ R2 = 140.d0  	!RhSasp
+ S1 = 4180.d0	!ctVhFW specific heat capacity 
+ S2 = 850.d0	!ctVhSa specific heat capacity 
+ rm = 1.d0	  !rhodhItmax
+ Sb = 35.d0	!Sbulkt0
+
+  
+mate 1
+ user,34
+  34,0,0,nt,0,3 
+  mu,lm,2222.0,nI,K1    !muhI,lambdahI,rhohIRt0,nhIt0,KhIt0I
+  aI,kI,cI		          !alphahI,khI,ctVhI
+  0.0,0.0,0.0           !bb1,bb2,bb3
+  Ru,T0,aT,vL,p0	      !Ru,thetat0,alphatgrtheta,etahLR,phLRt0I
+  D1,rL,w1,M1,M2,R1,R2  !DhLFW,rhohLRt0,whSat0,MhFWtm,MhSatm,RhFWsp,RhSasp
+  S1,S2,rm		          !ctVhFW,ctVhSa,rhodhItmax
+  1291,151,812		      !Gnuplot_n1,Gnuplot_n2,Gnuplot_n3
+  Sb
+
+parameter
+ pu=p0+0.01		!Druckunterschied 1mbar=100Pa=100N/m^2, Luftdruck 1013hPa=101300Pa
+ po=p0+0
+ to=-10
+ 
+ 
+! Randbedingungen
+eboun        !u1,  u2, u3, phLR, Sbulk,  nhI, theta, chalg
+ 1,   0.0,    0,   0,  0,    0,  0,      0,     0,     0,0,0,0     
+ 1    lx,     0,   0,  0,    0,  0,      0,     0,     0,0,0 ,0,0    
+ 2,   0.0,    0,   0,  0,    0,  0,      0,     0,     0,0,0,0,0     
+ 2,   ly      0,   0,  0,    0,  0,      0,     0,     0,0,0 ,0,0
+ 3,   0.0,    0,   0,  1,    1,  1,      0,     0,     0 ,0,0,0,0    
+ 3,   lz,     0,   0,  0,    1,  0,      0,     0,     0 ,0,0,0,0
+
+
+!edisp        !u1,  u2, u3, phLR,   Sbulk, nhI, theta, chalg     
+! 3,   0,      0,   0,  0,    0,     0,    0,     0,      0,0,0,0,0
+! 3,   lz,     0,   0,  0,    0,     0,     0,   -to,     0,0,0 ,0,0
+
+boun, add                 !u1,  u2,  u3, phLR, Sbulk, nhI, theta, chalg
+ 1,     1,                 0,   0,  -1,   0,  0,     0,   0,    0,0,0,0,0             
+ (nx+1)*(ny+1)*(nz+1), 0,  0,   0,   1,   0,   0,     0,   0,     0,0,0,0,0
+
+
+boun, add        !u1,  u2, u3, phLR,   Sbulk,nhI theta, chalg     
+ 355, 0,        1,   1,1,   0,   0,     0,    0,  0,0,0,0,0
+ 537, 0,        1,   1,1,   0,   0,     0,    0,  0,0,0,0,0
+ 843, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+ 841, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+ 842, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+ 850, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+ 851, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+ 852, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+ 861, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+ 859, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+ 860, 0,        0,   0,0,   0,   0,     0,    1,  0,0,0,0,0
+
+ disp        !u1,  u2, u3, phLR,   Sbulk, nhI, theta, chalg     
+ 843, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+ 841, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+ 842, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+ 850, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+ 851, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+ 852, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+ 861, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+ 859, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+ 860, 0,        0,   0,0,   0,   0,     0,    to,  0,0,0,0,0
+
+ 
+end
+
+batch
+prop,,1
+end
+ 2,1
+ 0.0 0.0
+  10 1.0
+ 600 1.0
+2400 1.0
+
+inter
+
+stop
+
+end

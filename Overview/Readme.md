@@ -2,7 +2,7 @@
 
 <!-- PROJECT LOGO -->
 <div class="column" style="display: inline-block;">
-  <a href="https://github.tik.uni-stuttgart.de/ac139584/Multi-X_Sea_Ice_modeling">
+  <a href="https://github.com/Raghav2197/Multi-X_Sea_Ice_modeling">
     <img src="images/Logo_J.png" alt="Logo">
   </a>
 </div>

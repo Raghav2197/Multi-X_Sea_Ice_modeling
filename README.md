@@ -1,2 +1,5 @@
 # Multi-X_Sea_Ice_modeling
 This repository contains resources, codes, data and files generated in the small scale sea ice physical and biogeochemical modeling project in the framework of SPP1158.
+
+# Getting help and discussions
+The first point of contact with the Sea Ice project is the community <a href="https://github.com/Raghav2197/Multi-X_Sea_Ice_modeling/discussions">discussion</a>. The discussion forum is regularly monitored by the developers.

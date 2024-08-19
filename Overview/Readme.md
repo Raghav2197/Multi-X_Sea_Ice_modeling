@@ -75,7 +75,7 @@ This repository supports the scientific endeavors in the project "Modeling of sm
     <img src="images/AndreaThom.jpg" alt="Example Image" width="200">
   </div>
   <div>
-    <p>Dr. Andrea Thom was a former colleague and postdoctoral researcher at the Institute of Structural Mechanics and Dynamics in Aerospace Engineering (ISD) in the University of Stuttgart. She was responsible for initial project coordination, and model development. </p>
+    <p>Dr. Andrea Thom is a former colleague and postdoctoral researcher at the Institute of Structural Mechanics and Dynamics in Aerospace Engineering (ISD) in the University of Stuttgart. She was responsible for initial project coordination, and model development. </p>
   </div>
 </div>
 </ul>

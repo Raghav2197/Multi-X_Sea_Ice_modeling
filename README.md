@@ -1,6 +1,6 @@
 <div class="column" style="display: inline-block;">
   <a href="https://github.com/Raghav2197/Multi-X_Sea_Ice_modeling">
-    <img src="Project_logo.png" alt="Logo">
+    <img src="Project_banner_github.png" alt="Logo">
   </a>
 </div>
 
